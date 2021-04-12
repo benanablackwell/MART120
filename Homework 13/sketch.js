@@ -12,6 +12,12 @@ var shapeX = 30;
 var shapeY = 50;
 var shapeX2 = 80;
 var shapeY2 = 120;
+var shapeXs = [];
+var shapeYs = [];
+var diameters = [];
+
+var shapeXSpeeds = [];
+var shapeYSpeeds = [];
 var shapeXSpeed;
 var shapeYSpeed;
 var shapeX2Speed;
@@ -24,6 +30,17 @@ function setup()
 {
     createCanvas(500, 600);
     // get a random speed when the it first starts
+	  var x = 50;
+    var y = 50;
+    var diameter = 25;
+    for (var i = 0; i < 10; i++) {
+        shapeXSpeeds[i] = Math.floor(Math.random() * (Math.floor(Math.random() * 5)) + 1);
+        shapeYSpeeds[i] = Math.floor(Math.random() * (Math.floor(Math.random() * 5)) + 1);
+        shapeXs[i] = getRandomNumber(500);
+        shapeYs[i] = getRandomNumber(600);
+        diameters[i] = getRandomNumber(30);
+    }
+
     shapeXSpeed = Math.floor(Math.random() * (Math.floor(Math.random() * 5)) + 1);
     shapeYSpeed = Math.floor(Math.random() * (Math.floor(Math.random() * 5)) + 1);
     shapeX2Speed = Math.floor(Math.random() * (Math.floor(Math.random() * 5)) + 1);
@@ -32,7 +49,7 @@ function setup()
 
 function draw()
 {
-    background(105,60,78);
+    background(80,69,78);
     stroke(0);
     fill(0);
     // top border
@@ -49,7 +66,7 @@ function draw()
     text("EXIT", width-50,height-50)
 
     //character
-    fill(23,40,123);
+    fill(23,40,40);
     circle(characterX,characterY,25);
 
     // handle the keys
@@ -146,6 +163,7 @@ function keyPressed()
 
 function setup()
 {
+	
     createCanvas(500, 600);
     shapeXSpeed = Math.floor(Math.random() * (Math.floor(Math.random() * 5)) + 1);
     shapeYSpeed = Math.floor(Math.random() * (Math.floor(Math.random() * 5)) + 1);
@@ -181,7 +199,37 @@ function draw()
     // exit message
     textSize(25);
     text("Exit", width-470,height-25)
-
+for (var i = 0; i < shapeXs.length; i++) {
+    {
+        circle(shapeXs[0],shapeYs[0], diameters[0]);
+        fill(100,80,70)
+        circle(shapeXs[1],shapeYs[1], diameters[1]);
+        fill(20,30,60)
+        circle(shapeXs[2],shapeYs[2], diameters[2]);
+        fill(50,75,90)
+        circle(shapeXs[3],shapeYs[3], diameters[3]);
+        fill(10,20,20)
+        circle(shapeXs[4],shapeYs[4], diameters[4]);
+        fill(80,100,70)
+    }
+        shapeXSpeeds[i] = Math.floor(Math.random() * (Math.floor(Math.random() * 5)) + 1);
+        shapeYSpeeds[i] = Math.floor(Math.random() * (Math.floor(Math.random() * 5)) + 1);
+		  shapeXs[i] += shapeXSpeeds[i];
+        shapeYs[i] += shapeYSpeeds[i];
+        // check to see if the shape has gone out of bounds
+        if (shapeXs[i] > width) {
+            shapeXs[i] = 0;
+        }
+        if (shapeXs[i] < 0) {
+            shapeXs[i] = width;
+        }
+        if (shapeYs[i] > height) {
+            shapeYs[i] = 0;
+        }
+        if (shapeYs[i] < 0) {
+            shapeYs[i] = height;
+        }
+}
    
     // enemy shapes
     {circle(shapeY2, shapeY, 10);
@@ -269,7 +317,10 @@ function createCharacter()
     fill(60,30,90);
     circle(characterX,characterY,25);
 }
-
+function createCharacter(x, y) {
+    characterX = x;
+    characterY = y;
+}
 function createBorders()
 {
     // top border
